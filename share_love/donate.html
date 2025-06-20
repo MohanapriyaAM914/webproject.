@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Donate to Ashram</title>
+  <link rel="stylesheet" href="donate.css" />
+</head>
+<body>
+
+  <!-- ✅ Navigation Bar -->
+  <nav class="navbar">
+    <a href="home.html">Home</a>
+    <a href="aashramam.html">Aashramam</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <h1>Donate to Ashram</h1>
+  
+  <div class="ashram-name fade-in" id="ashramName">Loading...</div>
+
+
+
+
+  <form id="donationForm" class="fade-in">
+    <label for="donorName">Your Name:</label>
+    <input type="text" id="donorName" name="donorName" required />
+
+    <label for="email">Your Email:</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="phone">Contact Number:</label>
+    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="10-digit number" required />
+
+    <label for="donationAmount">Donation Amount (₹):</label>
+    <input type="number" id="donationAmount" name="donationAmount" min="1" required />
+
+    <label for="paymentMethod">Payment Method:</label>
+    <select id="paymentMethod" name="paymentMethod" required>
+      <option value="">Select a method</option>
+      <option value="UPI">UPI</option>
+      <option value="Credit Card">Credit Card</option>
+      <option value="Debit Card">Debit Card</option>
+      <option value="Net Banking">Net Banking</option>
+    </select>
+
+    <label for="message">Message (optional):</label>
+    <textarea id="message" name="message" rows="4" placeholder="Any message for the ashram..."></textarea>
+
+    <button type="submit">Donate Now</button>
+
+    <div class="note">Your kind support helps those in need. 🙏</div>
+  </form>
+
+  <script>
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    const ashram = getQueryParam('ashram');
+    const ashramNameElem = document.getElementById('ashramName');
+
+    if (ashram) {
+      ashramNameElem.textContent = Donate to ${ashram};
+    } else {
+      ashramNameElem.textContent = 'No Ashram Selected';
+      alert('Please select an Ashram from the Ashram list page.');
+    }
+
+    document.getElementById('donationForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const donorName = e.target.donorName.value;
+      const amount = e.target.donationAmount.value;
+      alert(Thank you, ${donorName}, for donating ₹${amount} to ${ashram || 'the Ashram'}!);
+      e.target.reset();
+    });
+  </script>
+
+</body>
+</html>
